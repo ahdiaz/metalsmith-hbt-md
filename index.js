@@ -29,6 +29,8 @@ var plugin = function (handlebars, options) {
                 return;
             }
 
+            debug('Processing ' + key);
+
             var file = files[key];
             var source = file.contents.toString();
             var template = handlebars.compile(source, options);
@@ -36,8 +38,9 @@ var plugin = function (handlebars, options) {
 
             try {
                 file.contents = new Buffer(template(data));
+                debug('Processed ' + key);
             } catch (e) {
-                debug(e.message);
+                console.log(e.message);
             }
         });
     };
