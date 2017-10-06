@@ -6,13 +6,13 @@
  * @license MIT
  */
 
-var match = require('multimatch'),
+const match = require('multimatch'),
     debug = require('debug')('metalsmith-hbt-md');
 
 /**
  * Process Handlebars in Markdown files
  */
-var plugin = function (handlebars, options) {
+const plugin = function (handlebars, options) {
 
     options = options || {
         pattern: '**/*.md'
@@ -21,7 +21,7 @@ var plugin = function (handlebars, options) {
     return function (files, metalsmith, done) {
 
         setImmediate(done);
-        var meta = metalsmith.metadata();
+        const meta = metalsmith.metadata();
 
         Object.keys(files).forEach(function (key) {
 
@@ -31,10 +31,10 @@ var plugin = function (handlebars, options) {
 
             debug('Processing ' + key);
 
-            var file = files[key];
-            var source = file.contents.toString();
-            var template = handlebars.compile(source, options);
-            var data = Object.assign({}, meta, file);
+            const file = files[key];
+            const source = file.contents.toString();
+            const template = handlebars.compile(source, options);
+            const data = Object.assign({}, meta, file);
 
             try {
                 file.contents = new Buffer(template(data));
